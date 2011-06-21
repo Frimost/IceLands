@@ -2087,8 +2087,16 @@ public:
             Reset();
         }
 
-        void DamageTaken(Unit* /*done_by*/, uint32 &damage)
+        void DamageTaken(Unit* done_by, uint32 &damage)
         {
+			//Workground 
+			if (done_by) {
+				Powers po = done_by->getPowerType();
+				if (POWER_RAGE) {
+					uint32 rage_damage = damage/2; //muy subjetivo 
+					done_by->RewardRage(rage_damage,0,true);
+				}
+			}
             uiResetTimer = 5000;
             damage = 0;
         }
