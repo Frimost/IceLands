@@ -5055,7 +5055,7 @@ SpellCastResult Spell::CheckCast(bool strict)
 
 	// Dispel check - only if the first effect is dispel
     if (!m_IsTriggeredSpell && (m_spellInfo->Effect[EFFECT_0] == SPELL_EFFECT_DISPEL))
-        if (Unit const * target = m_targets.getUnitTarget())
+        if (Unit const * target = m_targets.GetUnitTarget())
             if (!GetSpellRadius(m_spellInfo, EFFECT_0, target->IsFriendlyTo(m_caster)))
             {
                 bool check = true;
@@ -5087,7 +5087,7 @@ SpellCastResult Spell::CheckCast(bool strict)
 
                         if ((1 << aura->GetSpellProto()->Dispel) & dispelMask)
                         {
-                            bool positive = aurApp->IsPositive() ? !(aura->GetSpellProto()->AttributesEx & SPELL_ATTR_EX_NEGATIVE) : false;
+							bool positive = aurApp->IsPositive() ? !(aura->GetSpellProto()->AttributesEx & SPELL_ATTR0_NEGATIVE_1) : false;
 
                             // Can only dispel positive auras on enemies and negative on allies
                             if (positive != target->IsFriendlyTo(m_caster))
