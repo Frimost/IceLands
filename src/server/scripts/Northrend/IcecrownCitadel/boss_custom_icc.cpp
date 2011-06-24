@@ -51,7 +51,7 @@ public:
 
 	struct boss_custom_iccAI : public BossAI
 	{
-		boss_custom_iccAI(Creature* creature) : BossAI(creature, DATA_GUNSHIP_BATTLE_EVENT)
+		boss_custom_iccAI(Creature* creature) : BossAI(creature, DATA_GUNSHIP_EVENT)
 		{}
 
 		void Reset()
@@ -78,14 +78,14 @@ public:
 		void JustDied(Unit* /*killer*/)
 		{
 			//Talk(SAY_DEATH);
-			//instance->SetBossState(DATA_GUNSHIP_BATTLE_EVENT,DONE);
+			//instance->SetBossState(DATA_GUNSHIP_EVENT,DONE);
 			_JustDied();
 		}
 
 		void JustReachedHome()
 		{
 			_JustReachedHome();
-			instance->SetBossState(DATA_GUNSHIP_BATTLE_EVENT, FAIL);
+			instance->SetBossState(DATA_GUNSHIP_EVENT, FAIL);
 		}
 		void DamageTaken(Unit* /*damageDealer*/, uint32& damage)
 		{
@@ -183,7 +183,7 @@ public:
 	};  
 	CreatureAI* GetAI(Creature* creature) const
 	{
-		return new boss_custom_iccAI(pCreature);
+		return new boss_custom_iccAI(creature);
 		//return GetIcecrownCitadelAI<boss_custom_iccAI>(creature);
 	}
 };    
