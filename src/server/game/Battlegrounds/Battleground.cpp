@@ -961,10 +961,13 @@ void Battleground::RemovePlayerAtLeave(const uint64& guid, bool Transport, bool 
         // remove from raid group if player is member
         if (Group* group = GetBgRaid(team))
         {
-            if (!group->RemoveMember(guid))                // group was disbanded
-            {
-                SetBgRaid(team, NULL);
-            }
+      if (!(isArena() && isRated()))
+      {
+        if (!group->RemoveMember(guid))                // group was disbanded
+        {
+          SetBgRaid(team, NULL);
+        }
+      }
         }
         DecreaseInvitedCount(team);
         //we should update battleground queue, but only if bg isn't ending
