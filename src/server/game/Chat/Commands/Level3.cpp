@@ -2977,6 +2977,23 @@ bool ChatHandler::HandleBanHelper(BanMode mode, const char *args)
             return false;
     }
 
+    std::string announce;
+
+	if (mode == BAN_CHARACTER)
+        announce = "El Personaje '";
+    else if (mode == BAN_IP)
+        announce = "La IP '";
+    else
+    announce = "Cuenta '";
+    announce += nameOrIP.c_str();
+    announce += "' fue baneado por ";
+    announce += duration;
+    announce += " Por el GM '";
+    announce += m_session->GetPlayerName();
+    announce += "'. La razon es: ";
+    announce += reason;
+    HandleAnnounceCommand(announce.c_str());
+
     return true;
 }
 
