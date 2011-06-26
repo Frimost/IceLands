@@ -915,12 +915,14 @@ void Battleground::RemovePlayerAtLeave(const uint64& guid, bool Transport, bool 
         {
             plr->ClearAfkReports();
 
-            if (!team) team = plr->GetTeam();
+            if (!team)
+               team = plr->GetTeam();
 
             // if arena, remove the specific arena auras
             if (isArena())
             {
-                bgTypeId=BATTLEGROUND_AA;                   // set the bg type to all arenas (it will be used for queue refreshing)
+               plr->RemoveArenaAuras(true);                    // removes debuffs / dots etc., we don't want the player to die after porting out
+               bgTypeId = BATTLEGROUND_AA;                     // set the bg type to all arenas (it will be used for queue refreshing)
 
                 // unsummon current and summon old pet if there was one and there isn't a current pet
                 plr->RemovePet(NULL, PET_SAVE_NOT_IN_SLOT);
@@ -958,13 +960,16 @@ void Battleground::RemovePlayerAtLeave(const uint64& guid, bool Transport, bool 
             }
         }
 
-        // remove from raid group if player is member
+        // remove from raid group if player is member, don't do this if the group is in an rated arena match
         if (Group* group = GetBgRaid(team))
         {
-            if (!group->RemoveMember(guid))                // group was disbanded
-            {
-                SetBgRaid(team, NULL);
-            }
+			if (!(isArena() && isRated()))
+			{
+				if (!group->RemoveMember(guid))                // group was disbanded
+				{
+					SetBgRaid(team, NULL);
+				}
+			}
         }
         DecreaseInvitedCount(team);
         //we should update battleground queue, but only if bg isn't ending
