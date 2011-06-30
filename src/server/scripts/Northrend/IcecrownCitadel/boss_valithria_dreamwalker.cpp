@@ -393,8 +393,15 @@ class boss_valithria_dreamwalker : public CreatureScript
                     me->SetFlag(UNIT_FIELD_FLAGS, UNIT_FLAG_NOT_SELECTABLE);
                     me->DespawnOrUnsummon(4000);
                     if (Creature* lichKing = ObjectAccessor::GetCreature(*me, _instance->GetData64(DATA_VALITHRIA_LICH_KING)))
-                        lichKing->CastSpell(lichKing, SPELL_SPAWN_CHEST, false);
-
+                        //lichKing->CastSpell(lichKing, SPELL_SPAWN_CHEST, false);
+                    if (GetDifficulty() == RAID_DIFFICULTY_10MAN_NORMAL)
+                            me->SummonGameObject(GO_DREAMWALKER_CACHE_10N, 4203.91f, 2456.83, 365.655, 1.54f, 0, 0, 0, 0, 8640000000);
+                        else if (GetDifficulty() == RAID_DIFFICULTY_10MAN_HEROIC)
+                            me->SummonGameObject(GO_DREAMWALKER_CACHE_10H, 4203.91f, 2456.83, 365.655, 1.54f, 0, 0, 0, 0, 864000000);
+                        else if (GetDifficulty() == RAID_DIFFICULTY_25MAN_NORMAL)
+                            me->SummonGameObject(GO_DREAMWALKER_CACHE_25N, 4203.91f, 2456.83, 365.655, 1.54f, 0, 0, 0, 0, 8640000000);
+                        else
+                            me->SummonGameObject(GO_DREAMWALKER_CACHE_25H, 4203.91f, 2456.83, 365.655, 1.54f, 0, 0, 0, 0, 8640000000);
                     if (Creature* trigger = ObjectAccessor::GetCreature(*me, _instance->GetData64(DATA_VALITHRIA_TRIGGER)))
                         me->Kill(trigger);
                 }
