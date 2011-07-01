@@ -248,9 +248,9 @@ bool ChatHandler::HandleKickPlayerCommand(const char *args)
 
     std::string announce;
 
-    announce = "The character '";
+    announce = "El personaje '";
     announce += target->GetName();
-    announce += "' was kicked by the character '";
+    announce += "' fue expulsado por '";
     announce += m_session->GetPlayerName();
     announce += "'.";
     HandleAnnounceCommand(announce.c_str());
