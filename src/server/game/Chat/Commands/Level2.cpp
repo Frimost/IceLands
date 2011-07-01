@@ -54,13 +54,13 @@ bool ChatHandler::HandleMuteCommand(const char* args)
         return false;
 
     char *mutereason = strtok(NULL, "\r");
-    std::string mutereasonstr = "No reason";
+    std::string mutereasonstr = "Sin razon";
     if (mutereason != NULL)
         mutereasonstr = mutereason;
 
     if(!mutereason)
     {
-        PSendSysMessage("You must enter a reason of mute");
+        PSendSysMessage("Debes poner una razon para mutear");
         SetSentErrorMessage(true);
         return false;
     }
@@ -98,13 +98,13 @@ bool ChatHandler::HandleMuteCommand(const char* args)
 
     PSendSysMessage(LANG_YOU_DISABLE_CHAT, nameLink.c_str(), notspeaktime, mutereasonstr.c_str());
 
-    announce = "The character '";
+    announce = "El personaje '";
     announce += nameStr;
-    announce += "' was muted for ";
+    announce += "' fue muteado (silenciado) por ";
     announce += delayStr;
-    announce += " minutes by the character '";
+    announce += " minutos, por el personaje '";
     announce += m_session->GetPlayerName();
-    announce += "'. The reason is: ";
+    announce += "'. Por: ";
     announce += mutereason;
     HandleAnnounceCommand(announce.c_str());
 
