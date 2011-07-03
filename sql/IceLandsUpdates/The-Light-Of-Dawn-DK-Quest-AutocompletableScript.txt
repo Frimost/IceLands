@@ -1,0 +1,5 @@
+-- Quest The Light Of Dawn, se deja autocompletable hasta que haya un script como la gente.-
+
+UPDATE `creature_involvedrelation` SET `id`='31082' WHERE (`id`='29173') AND (`quest`='12801');
+
+UPDATE `quest_template` SET `Method`='0', `ReqCreatureOrGOId1`='0', `ReqCreatureOrGOCount1`='0' WHERE (`entry`='12801');
